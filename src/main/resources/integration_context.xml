@@ -13,10 +13,10 @@
     <int:gateway service-interface="ru.volkov.integration.endpoints.PrinterGateway"
         default-request-channel="inputChannel"/>
 
-    <int:header-value-router input-channel="inputChannel" header-name="routeHeader">
-        <int:mapping value="int" channel="intChannel"/>
-        <int:mapping value="string" channel="stringChannel"/>
-    </int:header-value-router>
+    <int:recipient-list-router input-channel="inputChannel">
+        <int:recipient channel="intChannel"/>
+        <int:recipient channel="stringChannel"/>
+    </int:recipient-list-router>
 
     <int:channel id="inputChannel"/>
 
