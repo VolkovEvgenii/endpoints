@@ -24,13 +24,8 @@ public class EndpointsApplication implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         for (int i = 0; i < 10; i++) {
-            if (i % 2 == 0) {
-                Message<?> message = MessageBuilder.withPayload(i).build();
-                this.gateway.print(message);
-            } else {
-                Message<?> message = MessageBuilder.withPayload("String " + i).build();
-                this.gateway.print(message);
-            }
+            Message<?> message = MessageBuilder.withPayload(i).setHeader("routeHeader", "string").build();
+            this.gateway.print(message);
         }
     }
 
