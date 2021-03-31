@@ -10,5 +10,20 @@
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task-4.3.xsd">
 
+    <int:gateway service-interface="ru.volkov.integration.endpoints.PrinterGateway"
+        default-request-channel="inputChannel"/>
+
+    <int:payload-type-router input-channel="inputChannel">
+        <int:mapping type="java.lang.Integer" channel="intChannel"/>
+        <int:mapping type="java.lang.String" channel="stringChannel"/>
+    </int:payload-type-router>
+
+    <int:channel id="inputChannel"/>
+
+    <bean id="numericPrintService" class="ru.volkov.integration.endpoints.NumericPrintService"/>
+    <bean id="printService" class="ru.volkov.integration.endpoints.PrintService"/>
+
+    <int:service-activator ref="numericPrintService" method="print" input-channel="intChannel"/>
+    <int:service-activator ref="printService" method="print" input-channel="stringChannel"/>
 
 </beans>
