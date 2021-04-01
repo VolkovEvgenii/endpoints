@@ -22,9 +22,9 @@ public class EndpointsApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-
-        for (int i = 0; i < 10; i++) {
-            Message<?> message = MessageBuilder.withPayload("Robin Bobin").build();
+        String[] payloads = {"Kevin Bowersox", "John Doe", "Jane Doe"};
+        for (int i = 0; i < payloads.length; i++) {
+            Message<?> message = MessageBuilder.withPayload(payloads[i]).build();
             this.gateway.print(message);
         }
     }
