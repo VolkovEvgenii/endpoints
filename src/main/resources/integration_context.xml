@@ -13,10 +13,9 @@
     <int:gateway id="printerGateway" service-interface="ru.volkov.integration.endpoints.PrinterGateway"
         default-request-channel="inputChannel"/>
 
-    <int:recipient-list-router id="mainRouter" input-channel="inputChannel" default-output-channel="defaultChannel">
-        <int:recipient channel="intChannel" selector-expression="payload.equals(51)"/>
-        <int:recipient channel="stringChannel" selector-expression="payload.equals(51)"/>
-    </int:recipient-list-router>
+    <bean id="customRouter" class="ru.volkov.integration.endpoints.CustomRouter"/>
+
+    <int:router id="router" ref="customRouter" input-channel="inputChannel"/>
 
     <int:channel id="inputChannel"/>
 
