@@ -13,20 +13,12 @@
     <int:gateway id="printerGateway" service-interface="ru.volkov.integration.endpoints.PrinterGateway"
         default-request-channel="inputChannel"/>
 
-    <bean id="customRouter" class="ru.volkov.integration.endpoints.CustomRouter"/>
-
-    <int:router id="router" ref="customRouter" input-channel="inputChannel"/>
-
     <int:channel id="inputChannel"/>
+    <int:channel id="outputChannel"/>
 
-    <int:channel id="defaultChannel"/>
-
-    <bean id="numericPrintService" class="ru.volkov.integration.endpoints.NumericPrintService"/>
+    <int:filter expression="payload.equals(4)" input-channel="inputChannel" output-channel="outputChannel"/>
     <bean id="printService" class="ru.volkov.integration.endpoints.PrintService"/>
-    <bean id="defaultService" class="ru.volkov.integration.endpoints.DefaultService"/>
 
-    <int:service-activator id="numericActivator" ref="numericPrintService" method="print" input-channel="intChannel"/>
-    <int:service-activator id="stringActivator" ref="printService" method="print" input-channel="stringChannel"/>
-    <int:service-activator id="defaultActivator" ref="defaultService" method="print" input-channel="defaultChannel"/>
+    <int:service-activator id="stringActivator" ref="printService" method="print" input-channel="outputChannel"/>
 
 </beans>
