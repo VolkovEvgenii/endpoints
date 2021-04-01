@@ -15,8 +15,8 @@
 
     <int:channel id="inputChannel"/>
 
-    <bean id="customFilter" class="ru.volkov.integration.endpoints.CustomFilter"/>
-    <int:filter ref="customFilter" input-channel="inputChannel" output-channel="outputChannel"/>
+    <bean id="customSplitter" class="ru.volkov.integration.endpoints.CustomSplitter"/>
+    <int:splitter ref="customSplitter" input-channel="inputChannel" output-channel="outputChannel"/>
 
     <bean id="printService" class="ru.volkov.integration.endpoints.PrintService"/>
     <int:service-activator id="stringActivator" ref="printService" method="print" input-channel="outputChannel"/>
