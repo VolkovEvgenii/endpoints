@@ -21,7 +21,8 @@
     <bean id="customSplitter" class="ru.volkov.integration.endpoints.CustomSplitter"/>
     <int:splitter id="splitter" ref="customSplitter" method="split" input-channel="inputChannel" output-channel="agChannel"/>
 
-    <int:aggregator id="aggregator" input-channel="agChannel" output-channel="outputChannel"/>
+    <bean id="customAggregator" class="ru.volkov.integration.endpoints.CustomAggregator"/>
+    <int:aggregator ref="customAggregator" id="aggregator" input-channel="agChannel" output-channel="outputChannel"/>
 
     <bean id="printService" class="ru.volkov.integration.endpoints.PrintService"/>
     <int:service-activator id="stringActivator" ref="printService" method="print" input-channel="outputChannel"/>
